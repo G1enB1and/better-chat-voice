@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Better Chat Voice Settings</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="icon.png" alt="Icon" class="icon" />
+      <span class="title">Better Chat Voice</span>
+    </div>
+
+    <h2 class="subtitle">ElevenLabs TTS Setup</h2>
+
+    <label for="apiKey">API Key:</label>
+    <input type="text" id="apiKey" placeholder="Your ElevenLabs API key" />
+
+    <button id="fetchVoices">Fetch Voices</button>
+
+    <label for="voiceSelect">Select Voice:</label>
+    <select id="voiceSelect"></select>
+
+    <button id="save">Save</button>
+    
+    <div class="shoutout_container">
+      <div class="shoutout">
+        Check out my other projects at
+      </div>
+      <div class="shoutout">
+        <a href="waypointlabs.org">waypointlabs.org</a>
+      </div>
+      <div class="ko-fi">
+        <a href='https://ko-fi.com/M4M61GTER3' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+      </div>
+    </div>
+
+    <div id="statusMsg"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

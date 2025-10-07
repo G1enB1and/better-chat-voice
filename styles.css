@@ -1,0 +1,141 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #15152a;
+  color: #17b5fd;
+  width: 300px;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #00d6ff
+}
+
+a:hover {
+  color: #7b6cfa;
+}
+
+a:active {
+  color: #967aff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: center; /* center icon + text together */
+  gap: 10px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 0px;
+}
+
+.title {
+  font-size: 1.6em;
+  font-weight: 600;
+  color: #00d6ff;
+}
+
+.subtitle {
+  font-size: 1.3em;
+  color: #17b5fd;
+  margin-bottom: 22px;
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #e0e0e0;
+  margin-bottom: 10px;
+}
+
+input, select {
+  width: calc(100% - 2px); /* prevents subtle overflow from borders */
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  padding: 5px;
+  background-color: #2a2a3d;
+  color: #eaeaea;
+  border: 1px solid #17b5fd;
+  border-radius: 10px;
+}
+
+input:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 4px #17b5fd;
+}
+
+button {
+  width: calc(100% - 2px); /* prevents subtle overflow from borders */
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color: #7b6cfa;
+  color: #1e1e2f;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #967aff;
+  box-shadow: 0 0 8px #967affaa;
+}
+
+button:active {
+  background-color: #5a55e0;
+}
+
+#statusMsg {
+  margin-top: 15px;
+  color: #489cfe;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 20px;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+  box-shadow: 0 0 12px #00000040;
+  background: linear-gradient(135deg, #1a1a2e, #1e2247);
+}
+
+.shoutout_container {
+  display: grid;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.shoutout {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 5px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+}
+
+.ko-fi {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 5px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+}
+
+.ko-fi img {
+  margin-top: 8px;
+}
