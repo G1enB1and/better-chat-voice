@@ -38,15 +38,29 @@ function addTTSButton() {
   `;
   btn.innerText = '🔊';
 
-  btn.onclick = () => {
+  // Use addEventListener so the handler runs in the content-script context
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     const text = lastMessage.innerText;
-    btn.disabled = true;
     const originalText = btn.innerText;
+
+    btn.disabled = true;
     btn.innerText = '⏳';
 
     if (currentAudio) {
       currentAudio.pause();
       currentAudio = null;
+    }
+
+    // Guard: some pages redefine window.chrome without .runtime
+    if (!(typeof chrome !== 'undefined' && chrome?.runtime?.sendMessage)) {
+      console.error('[BCV] chrome.runtime.sendMessage not available (likely page context).');
+      alert('Better Chat Voice: extension messaging not available. Try reloading the page/extension.');
+      btn.disabled = false;
+      btn.innerText = originalText;
+      return;
     }
 
     chrome.runtime.sendMessage({ action: 'tts', payload: text }, (response) => {
@@ -57,20 +71,20 @@ function addTTSButton() {
 
         const audio = new Audio(url);
         currentAudio = audio;
-        audio.onended = () => {
+
+        // Clean up UI on end/error
+        const restoreUI = () => {
           btn.disabled = false;
           btn.innerText = originalText;
           const stopBtn = buttonBar.querySelector('#tts-stop');
           if (stopBtn) stopBtn.remove();
           currentAudio = null;
+          // optional: URL.revokeObjectURL(url);
         };
 
-        audio.onerror = () => {
-          btn.disabled = false;
-          btn.innerText = originalText;
-          const stopBtn = buttonBar.querySelector('#tts-stop');
-          if (stopBtn) stopBtn.remove();
-        };
+        audio.onended = restoreUI;
+        audio.onerror = restoreUI;
+
         audio.play().then(() => {
           // Playback started — show Stop button
           const oldStop = buttonBar.querySelector('#tts-stop');
@@ -89,7 +103,7 @@ function addTTSButton() {
             color: #dc2626;
           `;
 
-          stopBtn.onclick = () => {
+          stopBtn.addEventListener('click', () => {
             if (currentAudio) {
               currentAudio.pause();
               currentAudio.currentTime = 0;
@@ -98,15 +112,16 @@ function addTTSButton() {
             stopBtn.remove(); // Hide stop button when stopped
             btn.disabled = false;
             btn.innerText = originalText;
-          };
+          });
 
           buttonBar.appendChild(stopBtn);
         }).catch(err => {
-          console.error("Playback error:", err);
+          console.error('[BCV] Playback error:', err);
           btn.disabled = false;
           btn.innerText = originalText;
         });
 
+        // (Re)create Download link for this clip
         const oldLink = buttonBar.querySelector('#tts-download');
         if (oldLink) oldLink.remove();
 
@@ -125,15 +140,14 @@ function addTTSButton() {
 
         buttonBar.appendChild(downloadLink);
       } else {
-        console.error("TTS failed:", response?.error);
+        console.error('[BCV] TTS failed:', response?.error);
         btn.disabled = false;
         btn.innerText = originalText;
       }
     });
-  };
+  });
 
   buttonBar.appendChild(btn);
-
 }
 
 const observer = new MutationObserver(addTTSButton);
