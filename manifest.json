@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Better Chat Voice",
-  "version": "1.0",
+  "version": "1.1",
   "description": "This is a lightweight Chrome extension that adds a 'Read with ElevenLabs' button to each ChatGPT response, allowing you to convert ChatGPT text to high-quality speech using ElevenLabs voices (custom or built-in).",
   "author": "Glen Bland (Waypoint Labs)",
   "permissions": ["storage", "scripting", "activeTab"],

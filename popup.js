@@ -1,12 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
   const apiKeyInput = document.getElementById('apiKey');
   const voiceSelect = document.getElementById('voiceSelect');
+  const modelSelect = document.getElementById('modelSelect');
   const saveBtn = document.getElementById('save');
   const fetchVoicesBtn = document.getElementById('fetchVoices');
 
   // Load saved settings
-  chrome.storage.local.get(['apiKey', 'voiceId'], (data) => {
+  chrome.storage.local.get(['apiKey', 'voiceId', 'modelId'], (data) => {
     if (data.apiKey) apiKeyInput.value = data.apiKey;
+
+    // Default to v3 if nothing saved
+    if (modelSelect) modelSelect.value = data.modelId || 'eleven_v3';
 
     if (data.apiKey) {
       fetch('https://api.elevenlabs.io/v1/voices', {
@@ -37,13 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
   saveBtn.addEventListener('click', () => {
     const apiKey = apiKeyInput.value;
     const voiceId = voiceSelect.value;
+    const modelId = modelSelect.value || 'eleven_v3';
 
     if (!apiKey || !voiceId) {
       alert("Please enter an API key and select a voice before saving.");
       return;
     }
 
-    chrome.storage.local.set({ apiKey, voiceId }, () => {
+    chrome.storage.local.set({ apiKey, voiceId, modelId }, () => {
       document.getElementById('statusMsg').textContent = 'Settings saved!';
     });
 

@@ -8,7 +8,7 @@ This is a lightweight Chrome extension that adds a "Read with ElevenLabs" button
 - Uses ElevenLabs Text-to-Speech API
 - Supports downloading the audio as `.mp3`
 - Play, stop, and customize your voice
-- Settings stored locally (API key and voice choice)
+- Settings stored locally (API key, voice choice, and model)
 
 ## Requirements
 
@@ -26,8 +26,9 @@ This is a lightweight Chrome extension that adds a "Read with ElevenLabs" button
 
 1. Click the extension icon to enter your ElevenLabs API key and fetch voices.
 2. Select you voice of choice and click Save.
-3. Visit [ChatGPT](https://chatgpt.com) and click the 🔊 button at the end of any assistant reply to hear it read alound in your selected voice.
-4. Optionally - Click the save icon to download the last audio file played.
+3. Select your prefered model (recommended v3 for more expressive delivery and broader language support).
+4. Visit [ChatGPT](https://chatgpt.com) and click the 🔊 button at the end of any assistant reply to hear it read alound in your selected voice.
+5. Optionally - Click the save icon to download the last audio file played.
 
 ## Security
 

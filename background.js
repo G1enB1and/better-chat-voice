@@ -1,11 +1,13 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'tts') {
-    chrome.storage.local.get(['apiKey', 'voiceId'], ({ apiKey, voiceId }) => {
+    chrome.storage.local.get(['apiKey', 'voiceId', 'modelId'], ({ apiKey, voiceId, modelId }) => {
       if (!apiKey || !voiceId) {
         console.warn('API key or voice ID missing.');
         sendResponse({ error: 'Missing API key or voice ID' });
         return;
       }
+
+      const chosenModel = modelId || 'eleven_v3'; // default to v3
 
       fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
         method: 'POST',
@@ -16,11 +18,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         },
         body: JSON.stringify({
           text: message.payload,
-          model_id: 'eleven_monolingual_v1',
-          voice_settings: {
-            stability: 0.5,
-            similarity_boost: 0.75
-          }
+          model_id: chosenModel
         })
       })
       .then(async (res) => {
